@@ -4,7 +4,7 @@
    (* 3 (- 6 2) (- 2 7)))
 ```
    
-# Exercise 1. 3
+# Exercise 1.3
 ```
 (define (sum-of-square a b) (+ (* a a) (* b b) ) )
 
@@ -17,3 +17,19 @@
          (sum-of-square a b) 
          (sum-of-square b c)) )) 
 ```
+# Exercise 1.4
+```
+(define (a-plus-abs-b a b)
+   ((if (> b 0) + -) a b))
+```
+This procedure adds value of **a** to absolute value of **b** by returning an *operator* from if condition instead of the ususal values.
+# Exercise 1.5
+```
+(define (p) (p))
+(define (test x y)
+  (if (= x 0)
+      0
+      y))
+(test 0 (p))
+```
+For applicative-order the expression **p** is evaluted recursively because it returns itself. While for normal-order the  procedure **(p)** body is substituted while evaluating and then evaluated. So it doesn't result in infinite loop. 
