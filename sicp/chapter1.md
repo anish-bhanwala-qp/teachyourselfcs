@@ -39,4 +39,24 @@ For applicative-order the expression **p** is evaluted recursively because it re
 # Exercise 1.6
 sqrt-iter should not be called if the guess is *good-enough*. But in the case of *new-if* both the arguments are evaluated (applicative-order) causing infinite loop. 
 
+# Exercise 1.9
+```
+(define (+ a b)
+(if (= a 0) b (inc (+ (dec a) b))))
+```
+Above procedure is recursive. As the increment operation **(inc (+ dec a) b)** depends upon the result of the recursive call.
+```
+(define (+ a b)
+(if (= a 0) b (+ (dec a) (inc b))))
+```
+Whereas in the above procedure the recursive call has all the information at any point to represent current state of the program. Also the there is no operation waiting to be executed based on the result of the recursive call other than returning the result which can be returned whenever the final result is computed.
 
+# Exercise 1.10
+ - (A 0 10) output is 2^10
+ - (A 2 4) outpout is 2^2^4
+ - (A 3 3) outpout is 2^2^2^3
+
+Mathematical representations:
+- `(define (f n) (A 0 n))` **2*n**
+- `(define (g n) (A 1 n))` **2^n**
+- `(define (h n) (A 2 n))` **2^2^n**
