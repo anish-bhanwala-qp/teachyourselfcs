@@ -79,3 +79,10 @@ Iterative
   (cond ((= count n) p4)        
         (else (f-iter p2 p3 p4 (+ count 1) n))))
 ```
+
+# Exercise 1.12
+```
+(define (pascal r c)
+  (cond ((or (= c 1) (= r c)) 1)
+        (else (+ (pascal (- r 1) (- c 1)) (pascal (- r 1) c)))))
+```
