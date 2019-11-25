@@ -62,6 +62,13 @@ Mathematical representations:
 - `(define (h n) (A 2 n))` **2^2^n**
 
 # Exercise 1.11
+Recursive
+```
+(define (f-rec n)
+  (cond ((< n 3) n)
+        (else (+ (f-rec (- n 1)) (* 2 (f-rec (- n 2))) (* 3 (f-rec (- n 3)))))))
+```
+Iterative
 ```
 (define (f n)
   (cond ((< n 3) n)
