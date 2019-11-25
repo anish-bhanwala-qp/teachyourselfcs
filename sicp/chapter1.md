@@ -60,3 +60,15 @@ Mathematical representations:
 - `(define (f n) (A 0 n))` **2*n**
 - `(define (g n) (A 1 n))` **2^n**
 - `(define (h n) (A 2 n))` **2^2^n**
+
+# Exercise 1.11
+```
+(define (f n)
+  (cond ((< n 3) n)
+      (else (f-iter 0 1 2 3 n))))
+
+(define (f-iter p1 p2 p3 count n)
+  (define p4 (+ p3 (* 2 p2) (* 3 p1 )))
+  (cond ((= count n) p4)        
+        (else (f-iter p2 p3 p4 (+ count 1) n))))
+```
