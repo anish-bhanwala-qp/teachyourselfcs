@@ -86,3 +86,88 @@ Iterative
   (cond ((or (= c 1) (= r c)) 1)
         (else (+ (pascal (- r 1) (- c 1)) (pascal (- r 1) c)))))
 ```
+
+# Exercise 1.13
+```
+;;;;;;;;;; START  square root calculation ;;;;;;;;;;;;
+(define (square x) (* x x))
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x) x)))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+;;;;;;;;;; END ;;;;;;;;;;;;
+
+
+;;;;;;;;;; START  calculate x raise to power y ;;;;;;;;;;;;
+(define (power num exponent)
+  (power-iter 1 num exponent num))
+
+(define (power-iter count num exponent result)
+  (if (= count exponent)
+      result
+      (power-iter (+ count 1) num exponent (* result num))))
+;;;;;;;;;; END ;;;;;;;;;;;;
+
+
+;;;;;;;;;; START Fib calculator ;;;;;;;;;;;;
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (fib-iter 0 1 (- n 1)))))
+
+(define (fib-iter prev curr count)
+  (if (= count 0)
+      curr
+      (fib-iter curr (+ prev curr) (- count 1))))
+
+;;;;;;;;;; END ;;;;;;;;;;;;
+
+(define (phi)
+  (/ (+ 1 (sqrt 5)) 2))
+
+(define (psi)
+  (/ (- 1 (sqrt 5)) 2))
+
+
+;;;;;;;;;; START round decimal not nearest smaller integer ;;;;;;;;;;;;
+(define (floor num)
+  (if (or (< num 0) (= num 0))
+      n
+      (sm-iter 1 num)))
+(define (sm-iter cnt num)
+  (cond ((= cnt num) cnt)
+        ((> (+ cnt 1) num) cnt)
+        (else (sm-iter (+ cnt 1) num))))
+;;;;;;;;;; END ;;;;;;;;;;;;
+
+
+;;;;;;;;;; START Round off to nearest integer ;;;;;;;;;;;;
+(define (roundoff n)
+  (nearest-internal (floor n) n))
+
+(define (nearest-internal smaller n)
+  (if (or (< (- n smaller) 0.5) (= (- n smaller) 0.5))
+      smaller
+      (+ smaller 1)))
+;;;;;;;;;; END ;;;;;;;;;;;;
+
+
+
+;;;;; Verify Fib(n) = (φ^n - ψ^n)/√5. Where ψ(psi) = (1 -√5)/2, φ(phi) = (1 + √5)/2. ;;;;;;;;;
+(define (verify n)
+  (= (fib n) (roundoff (/ (power (phi) n) (sqrt 5)))))
+(verify 7)
+```
