@@ -171,3 +171,16 @@ Iterative
   (= (fib n) (roundoff (/ (power (phi) n) (sqrt 5)))))
 (verify 7)
 ```
+
+# Exercise 1.16
+```
+(define (sq n) (* n n ))
+
+(define (fast-expt2 b n)
+  (fast-iter 1 b n))
+(define (fast-iter a b n)
+  (cond ((= n 0) 1)
+        ((= n 1) (* a b))
+        ((even? n) (fast-iter a (sq b) (/ n 2)))
+        (else (fast-iter (* a b) b (- n 1)))))
+```
