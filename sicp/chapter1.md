@@ -184,3 +184,31 @@ Iterative
         ((even? n) (fast-iter a (sq b) (/ n 2)))
         (else (fast-iter (* a b) b (- n 1)))))
 ```
+
+# Exercise 1.17
+```
+(define (double n) (* n 2))
+(define (halve n) (/ n 2))
+
+(define (fast-mul a b)
+  (cond ((= b 0) 0)
+        ((= b 1) a)
+        ((even? b) (fast-mul (double a) (halve b)))
+        (else (+ a (fast-mul a (- b 1))))))
+
+(fast-mul 3 10)
+```
+
+# Exercise 1.18
+```
+(define (fast-mul-iter a b)
+  (mul-iter a b 0))
+
+(define (mul-iter a b add)
+  (cond ((= b 0) 0)
+        ((= b 1) (+ a add))
+        ((even? b) (mul-iter (double a) (halve b) add))
+        (else (mul-iter a (- b 1) (+ a add)))))
+
+(fast-mul-iter 3 11)
+```
