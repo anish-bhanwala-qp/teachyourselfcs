@@ -347,3 +347,8 @@ For small numbers given in the problem you don't see any/much difference. But fo
 
 (three-primes 1000000)
 ```
+
+# Exercise 1.25
+While calculating `(expmod a n n)` the process turns out to be:
+`((((((a^2) % n)^2) % n)^2) % n)`
+As take remainder before squaring we always have number less than n. Although I figured this difference I couldn't understand how this really mattered. So looking at other solutions, the reason why it matters most is because computing square of large numbers is expensive and a^n can be huge.
