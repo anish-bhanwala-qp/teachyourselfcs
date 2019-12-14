@@ -259,7 +259,59 @@ Applicative-order evaluation.`remainder` is evaluated 4 times.
 
 - (if (= 0 0) 2 
 
+# Exercise 1.21
+```
+(define (smallest-divisor n)
+  (define (square b) (* b b))
+  (define (find-divisor a)
+    (cond ((> (square a) n) n)
+          ((= (remainder n a) 0) a)
+          (else (find-divisor (+ a 1)))))
+  (find-divisor 2))
+```
+`(smallest-divisor 199)` **199**
+`(smallest-divisor 1999)` **1999**
+`(smallest-divisor 19999)` **7**
 
+# Exercise 1.22
+The square roots of 10K, 100K and 1000K have approximate ratio of 3 (3.16). So the runtime should also increase proportional to that. I tested but for me the ratio was coming out to be around 1.6. So I checked some other solutions and found that it doesn't hold up for small numbers as nowdays the processors are really fast. So I tested with 10^9, 10^10 and 10^11. For these numbers the ratio was around 3. Basically the runtimes are not constant and they keep changing for the same input, though not by a significant difference. So I just took a average (more like median) values for each input.
+```
+(define (prime? n)
+  (= (smallest-divisor n) n))
 
+(define (timed-prime-test n)
+  (newline)
+  (display n)
+  (start-prime-test n (runtime)))
+(define (start-prime-test n start-time)
+  (if (prime? n)
+      (report-prime (- (runtime) start-time))))
+(define (report-prime elapsed-time)
+  (display " *** ")
+  (display elapsed-time))
 
+(define (search-for-primes start end)
+  (define (next-odd n)
+    (if (even? n)
+        (+ n 1)
+        (+ n 2)))
+  (define (check n count)
+    (cond ((> n end) count)
+          ((prime? n) (check (next-odd n) (+ count 1)))
+          (else (check (next-odd n) count))))  
+  (check (if (even? start) (+ start 1) start) 0))
+
+;(search-for-primes 1 10)
+
+(define (three-primes start)
+  (define (next-odd n)
+    (if (even? n)
+        (+ n 1)
+        (+ n 2)))
+  (define (check n count start-time)
+    (cond ((= count 3) (report-prime (- (runtime) start-time)))
+          ((prime? n) (check (next-odd n) (+ count 1) start-time))
+          (else (check (next-odd n) count start-time))))  
+  (check (if (even? start) (+ start 1) start) 0 (runtime)))
+```
  
