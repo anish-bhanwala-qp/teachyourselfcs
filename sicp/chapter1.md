@@ -315,3 +315,35 @@ The square roots of 10K, 100K and 1000K have approximate ratio of 3 (3.16). So t
   (check (if (even? start) (+ start 1) start) 0 (runtime)))
 ```
  
+# Exercise 1.23
+For small numbers given in the problem you don't see any/much difference. But for large numbers like 10^10 plus, the ratio is roughly 1.7-1.9 i.e. near 2.
+```
+(define (fast-smallest-divisor n)
+  (define (square b) (* b b))
+  (define (next b) (if (= b 2) 3 (+ b 2)))
+  (define (find-divisor a)
+    (cond ((> (square a) n) n)
+          ((= (remainder n a) 0) a)
+          (else (find-divisor (next a)))))
+  (find-divisor 2))
+
+(define (fast-prime? n)
+  (= (fast-smallest-divisor n) n))
+
+(define (report-prime elapsed-time)
+  (display " *** ")
+  (display elapsed-time))
+
+(define (three-primes start)
+  (define (next-odd n)
+    (if (even? n)
+        (+ n 1)
+        (+ n 2)))
+  (define (check n count start-time)
+    (cond ((= count 3) (report-prime (- (runtime) start-time)))
+          ((fast-prime? n) (check (next-odd n) (+ count 1) start-time))
+          (else (check (next-odd n) count start-time))))  
+  (check (if (even? start) (+ start 1) start) 0 (runtime)))
+
+(three-primes 1000000)
+```
