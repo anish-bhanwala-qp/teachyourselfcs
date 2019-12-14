@@ -381,3 +381,9 @@ As take remainder before squaring we always have number less than n. Although I 
         (iter (next a) (+ (term a) result))))
   (iter a 0))
 ```
+# Exercise 1.34
+The evaluation goes like this:
+- `(f f)`
+- `(f 2)`
+- `(2 2)`
+This throws error: `application: not a procedure; expected a procedure that can be applied to arguments given: 2`
