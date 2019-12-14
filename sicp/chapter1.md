@@ -352,3 +352,22 @@ For small numbers given in the problem you don't see any/much difference. But fo
 While calculating `(expmod a n n)` the process turns out to be:
 `((((((a^2) % n)^2) % n)^2) % n)`
 As take remainder before squaring we always have number less than n. Although I figured this difference I couldn't understand how this really mattered. So looking at other solutions, the reason why it matters most is because computing square of large numbers is expensive and a^n can be huge.
+
+# Exercise 1.29
+```
+(define (simpson-integral f a b n)
+  (define (h) (/ (- b a) n))  
+  (define (term x)
+    (define (y) (f (+ a (* x (h)))))
+    (cond ((or (= x 0) (= x n)) (y))
+          ((even? x) (* 2 (y)))
+          (else (* 4 (y)))))
+  (define (next x) (+ x 1))  
+  (* (/ (h) 3) (sum term 0 next n)))
+
+(define (cube n) (* n n n))
+
+(simpson-integral cube 0 1 100)
+
+(simpson cube 0 1 100)
+```
