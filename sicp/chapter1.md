@@ -427,3 +427,21 @@ Without average damping it took 30 iterations and with average damping it took 1
 (fixed-point (lambda (x) (/ (log 10000) (log x))) 2)
 (fixed-point (lambda (x) (average x (/ (log 10000) (log x)))) 2)
 ```
+
+# Exercise 1.37
+For the iterative solution the trick was to start from the last result and continue from there.
+```
+(define (cont-frac n d k)     
+  (define (compute i)
+    (if (= i k)
+        (/ (n i) (d i))        
+        (/ (n i) (+ (d i) (compute (+ i 1))))))
+  (compute 1))
+
+(define (cont-frac-iter n d k)     
+  (define (compute i result)
+    (if (= i 0)
+        result  
+        (compute (- i 1) (/ (n i) (+ (d i) result)))))
+  (compute k 0))
+```
