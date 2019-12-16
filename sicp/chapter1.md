@@ -462,3 +462,19 @@ For the iterative solution the trick was to start from the last result and conti
                  1))
            10) 
 ```
+
+# Exercise 1.41
+Result 21.
+```
+(define (double proc) (lambda (x) (proc (proc x))))
+```
+
+# Exercise 1.42
+```
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+(define (square x) (* x x))
+
+((compose square inc) 6)
+```
