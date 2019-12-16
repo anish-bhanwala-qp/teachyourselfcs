@@ -445,3 +445,20 @@ For the iterative solution the trick was to start from the last result and conti
         (compute (- i 1) (/ (n i) (+ (d i) result)))))
   (compute k 0))
 ```
+
+# Exercise 1.38
+```
+(define (cont-frac-iter n d k)     
+  (define (compute i result)
+    (if (= i 0)
+        result  
+        (compute (- i 1) (/ (n i) (+ (d i) result)))))
+  (compute k 0))
+
+(cont-frac-iter (lambda (i) 1)
+           (lambda (i)
+             (if (= (modulo (+ i 1) 3) 0)
+                 (* (/ (+ i 1) 3) 2)
+                 1))
+           10) 
+```
