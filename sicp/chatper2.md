@@ -101,3 +101,44 @@
 (rect-area r2)
 (rect-perimeter r2)
 ```
+
+# Exercise 2.4
+```
+(define (cons1 x y)
+  (lambda (m) (m x y)))
+(define (car1 z)
+  (z (lambda (p q) p)))
+(define (cdr1 z)
+  (z (lambda (p q) q)))
+```
+
+# Exercise 2.5
+```
+(define (exp x y)
+  (define (square a) (* a a))
+  (define (exp-iter i result)    
+    (cond ((= i 1) result)
+          ((= (remainder i 2) 0)
+           (exp-iter (/ i 2) (square result)))
+          (else (* result (exp-iter (- i 1) result)))))
+  (exp-iter y x))
+
+(define (cons2 x y)
+  (* (exp 2 x) (exp 3 y)))
+
+(define (find-exp x val)
+  (define (find-exp-iter i prev)
+    (if (= (remainder x prev) 0)
+        (find-exp-iter (+ i 1) (* prev val))
+        i))
+  (find-exp-iter 0 val))
+
+(define (car2 x)  
+  (find-exp x 2))
+(define (cdr2 x)  
+  (find-exp x 3))
+
+(define p2 (cons2 3 12))
+(car2 p2)
+(cdr2 p2)
+```
