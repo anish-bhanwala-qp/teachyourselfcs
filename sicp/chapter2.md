@@ -142,3 +142,18 @@
 (car2 p2)
 (cdr2 p2)
 ```
+
+# Exercise 2.7
+```
+(define (lower-bound interval)
+  (car interval))
+(define (upper-bound interval)
+  (cdr interval))
+```
+
+# Exercise 2.8
+```
+(define (sub-interval x y)
+  (make-interval (- (lower-bound x) (upper-bound y))
+                 (- (upper-bound x) (lower-bound y))))
+```
