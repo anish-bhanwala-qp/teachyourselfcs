@@ -216,3 +216,25 @@ Iterative can be done by using **append**. Also its easier to construct reverse 
         ((odd? (car w)) (cons (car w) (same-parity-recursive (cdr w) odd?)))
         (else (cons (car w) (same-parity-recursive (cdr w) even?)))))
 ```
+
+# Exercise 2.21
+```
+(define (square x) (* x x))
+
+(define (square-list items)
+  (if (null? items)
+      nil
+      (cons (square (car items)) (square-list (cdr items)))))
+(define (square-list1 items)
+  (map square items))
+```
+
+# Exercise 2.23
+```
+(define (for-each fn items)
+  (cond ((null? items) true)
+      (else (fn (car items))
+      (for-each fn (cdr items)))))
+
+(for-each (lambda (x) (newline) (display x)) (list 1 2 3 4 5))
+```
