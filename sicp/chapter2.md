@@ -270,3 +270,16 @@ The box structure is: (1, )-> ((2, )-> ((3, )-> (4, nil), nil), nil)
 ;;(mcons (mcons 1 (mcons 2 (mcons 3 '()))) (mcons 4 (mcons 5 (mcons 6 '()))))
 ;;(mcons (mcons 1 (mcons 2 (mcons 3 '()))) (mcons (mcons 4 (mcons 5 (mcons 6 '()))) '()))
 ```
+
+# Exercise 2.27
+```
+(define (deep-reverse items)
+  (define (reverse-car-if-pair x)
+    (if (pair? x)
+        (deep-reverse-iter x nil)
+        x))
+    (define (deep-reverse-iter remaining earlier-items)
+      (cond ((null? remaining) earlier-items)          
+            (else (deep-reverse-iter (cdr remaining) (cons (reverse-car-if-pair (car remaining)) earlier-items)))))
+    (deep-reverse-iter items nil))
+```
