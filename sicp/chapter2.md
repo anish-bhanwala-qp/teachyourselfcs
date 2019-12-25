@@ -200,3 +200,19 @@
                     coin-values))
                 coin-values)))))
 ```
+
+# Exercise 2.20
+Iterative can be done by using **append**. Also its easier to construct reverse order list. 
+```
+(define (same-parity . w)
+  (define (odd? x) (= (remainder x 2) 1))
+  (define (even? x) (= (remainder x 2) 0))
+  (define (same-parity-recursive items parity-check)
+    (cond ((null? items) items)
+          ((parity-check (car items))
+           (cons (car items) (same-parity-recursive (cdr items) parity-check)))
+          (else (same-parity-recursive (cdr items) parity-check))))
+  (cond ((null? w) w)
+        ((odd? (car w)) (cons (car w) (same-parity-recursive (cdr w) odd?)))
+        (else (cons (car w) (same-parity-recursive (cdr w) even?)))))
+```
