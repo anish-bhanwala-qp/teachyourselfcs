@@ -238,3 +238,35 @@ Iterative can be done by using **append**. Also its easier to construct reverse 
 
 (for-each (lambda (x) (newline) (display x)) (list 1 2 3 4 5))
 ```
+
+# Exercise 2.24
+The box structure is: (1, )-> ((2, )-> ((3, )-> (4, nil), nil), nil)
+```
+(list 1 (list 2 (list 3 4)))
+;;(mcons 1 (mcons (mcons 2 (mcons (mcons 3 (mcons 4 '())) '())) '()))
+```
+
+# Exercise 2.25
+```
+;;(1 3 (5 7) 9)
+(define l (list 1 3 (list 5 7) 9))
+(car (cdr (car (cdr (cdr l)))))
+
+;;((7))
+(define l2 (list (list 7)))
+(car (car l2))
+
+;;(1 (2 (3 (4 (5 (6 7))))
+(define l3 (list 1 (list 2 (list 3 (list 4 (list 5 (list 6 7)))))))
+(car (cdr (car (cdr (car (cdr (car (cdr (car (cdr (car (cdr l3))))))))))))
+```
+
+# Exercise 2.26
+```
+(append x y)
+(cons x y)
+(list x y)
+;;(mcons 1 (mcons 2 (mcons 3 (mcons 4 (mcons 5 (mcons 6 '()))))))
+;;(mcons (mcons 1 (mcons 2 (mcons 3 '()))) (mcons 4 (mcons 5 (mcons 6 '()))))
+;;(mcons (mcons 1 (mcons 2 (mcons 3 '()))) (mcons (mcons 4 (mcons 5 (mcons 6 '()))) '()))
+```
