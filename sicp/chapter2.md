@@ -157,3 +157,46 @@
   (make-interval (- (lower-bound x) (upper-bound y))
                  (- (upper-bound x) (lower-bound y))))
 ```
+
+# Exercise 2.17
+```
+(define (last-pair l)
+  (cond ((null? l) l)
+        ((null? (cdr l)) l)
+        (else (last-pair (cdr l)))))
+```
+
+# Exercise 2.18
+```
+(define (reverse li)
+  (define (reverse-internal remaining prev)    
+    (if (null? (cdr remaining))
+        (cons (car remaining) prev)
+        (reverse-internal (cdr remaining) (cons (car remaining) prev))))
+  (reverse-internal li nil))
+```
+
+# Exercise 2.19
+```
+(define (no-more? coin-values)
+  (null? coin-values))
+
+(define (except-first-denomination coin-values)
+  (cdr coin-values))
+
+(define (first-denomination coin-values)
+  (car coin-values))
+
+
+(define (cc amount coin-values)
+  (cond ((= amount 0) 1)
+        ((or (< amount 0) (no-more? coin-values)) 0)
+        (else
+         (+ (cc amount
+                (except-first-denomination
+                 coin-values))
+            (cc (- amount
+                   (first-denomination
+                    coin-values))
+                coin-values)))))
+```
