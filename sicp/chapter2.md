@@ -283,3 +283,15 @@ The box structure is: (1, )-> ((2, )-> ((3, )-> (4, nil), nil), nil)
             (else (deep-reverse-iter (cdr remaining) (cons (reverse-car-if-pair (car remaining)) earlier-items)))))
     (deep-reverse-iter items nil))
 ```
+
+# Exercise 2.28
+```
+(define (fringe items)
+  (if (null? items)
+      nil
+      (let ((x (car items))
+            (y (cdr items)))
+        (cond ((null? x) nil)
+              ((pair? x) (append (fringe x) (fringe y)))
+              (else (cons x (fringe y)))))))
+```
