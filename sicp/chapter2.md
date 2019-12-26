@@ -327,3 +327,22 @@ For the **2.29(d)** question, which need to change two procedures i.e. `righ-bra
 (define (balanced mobile)
   (= (torque (left-branch mobile)) (torque (right-branch mobile))))
 ```
+
+# Exercise 2.30
+```
+(define (square-tree t)
+  (cond ((null? t) t)
+        ((not (pair? t)) (* t t))
+        (else (cons (square-tree (car t)) (square-tree (cdr t))))))
+
+(square-tree (list 1 (list 2 (list 3 4) 5) (list 6 7)))
+
+(define (square-tree-map t)
+  (map (lambda (x)
+         (if (pair? x)
+             (square-tree-map x)
+             (* x x)))
+       t))
+
+(square-tree-map (list 1 (list 2 (list 3 4) 5) (list 6 7)))
+```
