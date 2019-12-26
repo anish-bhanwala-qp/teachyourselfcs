@@ -295,3 +295,35 @@ The box structure is: (1, )-> ((2, )-> ((3, )-> (4, nil), nil), nil)
               ((pair? x) (append (fringe x) (fringe y)))
               (else (cons x (fringe y)))))))
 ```
+
+# Exercise 2.29
+For the **2.29(d)** question, which need to change two procedures i.e. `righ-branch` and `branch-structure`.
+```
+(define (make-mobile left right)
+  (list left right))
+(define (make-branch length structure)
+  (list length structure))
+
+(define (left-branch mobile)
+  (car mobile))
+(define (right-branch mobile)
+  (car (cdr mobile)))
+(define (branch-length branch)
+  (car branch))
+(define (branch-structure branch)
+  (car (cdr branch)))
+
+(define (branch-weight branch)
+  (let ((structure (branch-structure branch)))
+    (cond ((pair? structure) (total-weight structure))
+        (else structure))))
+
+(define (total-weight mobile)  
+  (+ (branch-weight (left-branch mobile)) (branch-weight (right-branch mobile))))
+
+(define (torque branch)
+  (* (branch-length branch) (branch-weight branch)))
+
+(define (balanced mobile)
+  (= (torque (left-branch mobile)) (torque (right-branch mobile))))
+```
