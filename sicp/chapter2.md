@@ -390,3 +390,17 @@ For the **2.29(d)** question, which need to change two procedures i.e. `righ-bra
 
 (append (list 1 2 3) (list 4 5 6))
 ```
+
+# Exercise 2.34
+```
+(define (horner-eval x coefficient-sequence)
+  (accumulate (lambda (this-coeff higher-terms) (+ this-coeff (* x higher-terms)))
+              0
+              coefficient-sequence))
+```
+
+# Exercise 2.35
+```
+(define (count-leaves t)
+  (accumulate (lambda (item result) (+ item result)) 0 (map (lambda (x) (if (pair? x) (count-leaves x) 1)) t)))
+```
