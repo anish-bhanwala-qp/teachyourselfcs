@@ -24,3 +24,26 @@
 (s 16)
 (s 'how-many-calls?)
 ```
+
+# Exercise 3.3
+```
+(define (make-account2 balance original-pswd)
+  (define (withdraw amount)
+    (if (> balance amount)
+        (begin (set! balance (- balance amount)) balance)
+        "Insufficient balance"))
+  (define (deposit amount)
+    (if (< amount 0)
+        "Amount should be > zero"
+        (begin (set! balance (+ balance amount)) balance)))
+  (define (dispatch type pswd)
+    (cond ((not (eq? pswd original-pswd)) (error "Invalid password"))
+          ((eq? type "w") withdraw)
+          ((eq? type "d") deposit)          
+          (else (error "unknown request"))))
+  dispatch)
+
+(define acc2 (make-account2 100 'secret))
+((acc2 "w" 'secret) 50)
+((acc2 "w" 'invalid) 50)
+```
