@@ -77,3 +77,47 @@
 ((acc2 "w" 'secret) 50)
 (acc2 "w" 'invalid)
 ```
+# Exercise 3.7
+```
+(define (make-account2 balance original-pswd)
+  (define invalid-attempts 0)
+  (define (call-the-cops)
+    (write "cops called!"))
+  (define (withdraw amount)
+    (if (> balance amount)
+        (begin (set! balance (- balance amount)) balance)
+        "Insufficient balance"))
+  (define (deposit amount)
+    (if (< amount 0)
+        "Amount should be > zero"
+        (begin (set! balance (+ balance amount)) balance)))
+  (define (handle-invalid-attempt)
+    (if (eq? invalid-attempts 7)
+        (call-the-cops)
+        (begin (set! invalid-attempts (+ invalid-attempts 1)) (write "Invalid password"))))
+  (define (dispatch type pswd)
+    (cond ((not (eq? pswd original-pswd)) (handle-invalid-attempt))
+          ((eq? type "w") (begin (set! invalid-attempts 0) withdraw))
+          ((eq? type "d") (begin (set! invalid-attempts 0) deposit))
+          ((eq? type "v") (eq? 1 1))
+          ((eq? type "b") balance)
+          (else (error "unknown request"))))
+  dispatch)
+
+(define acc2 (make-account2 100 'secret))
+((acc2 "w" 'secret) 50)
+(newline)
+
+(define (make-joint account verify-password password)
+  (if (account "v" verify-password)
+      (lambda (type pswd)
+        (if (eq? pswd password) (account type verify-password)
+            "Invalid new password"))
+      ("password verification failed")))
+
+(define joint (make-joint acc2 'secret 'new))
+(joint "b" 'new)
+((acc2 "w" 'secret) 10)
+(joint "b" 'new)
+(acc2 "b" 'secret)
+```
