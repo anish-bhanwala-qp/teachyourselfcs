@@ -121,3 +121,14 @@
 (joint "b" 'new)
 (acc2 "b" 'secret)
 ```
+
+# Exercise 3.8
+```
+(define f ((lambda ()
+   (define result 0)
+   (define called false)
+   (define (execute x)
+     (if (eq? called true) result
+       (begin (set! called true) (set! result x) result)))
+    execute)))
+```
